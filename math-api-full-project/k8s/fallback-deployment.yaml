@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fallback-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: math-api
+      version: fallback
+  template:
+    metadata:
+      labels:
+        app: math-api
+        version: fallback
+    spec:
+      containers:
+        - name: fallback
+          image: yourdockerhubusername/fallback:latest
+          ports:
+            - containerPort: 5000

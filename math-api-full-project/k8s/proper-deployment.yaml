@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proper-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: math-api
+      version: proper
+  template:
+    metadata:
+      labels:
+        app: math-api
+        version: proper
+    spec:
+      containers:
+        - name: proper
+          image: yourdockerhubusername/proper:latest
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /calculate
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
